@@ -11,8 +11,6 @@ public class Maze {
     Cell[][] cells; // matrix of maze cells
     List<List<Integer>> adjacencyList; // stores neighbors
 
-    Random rng = new Random();
-
     // constructor
     public Maze(int r, int c) {
         this.totalRows = r;
@@ -35,7 +33,7 @@ public class Maze {
     }
 
     // we will use an ID to identify each cell
-    // the unique ID will be (row * totalRows + col)
+    // the unique ID will be (row * totalCols + col)
     // helper function to get Id
     public int getId(int r, int c) {
         return r * totalCols + c;
@@ -44,7 +42,7 @@ public class Maze {
     // returns a List of cellId's of adjacent cells
     public List<Integer> getPotentialNeighbors(int cellId) {
         int row = cellId / totalCols;
-        int col = cellId % totalRows;
+        int col = cellId % totalCols;
         List<Integer> potentialNeighbors = new ArrayList<>(4);
         
         // add up neighbor
@@ -66,12 +64,31 @@ public class Maze {
         return potentialNeighbors;
     }
 
+    // sets don't support random from index, so we can convert the set to a List and get random ID
+    Random rng = new Random();
+    public int getRandomFromSet(HashSet<Integer> set) {
+        List<Integer> list = new ArrayList<>(set);
+        int randomIndex = rng.nextInt(list.size());
+        int randomId = list.get(randomIndex);
+        return randomId;
+    }
+
 
     public void generateMaze() {
         int numCells = totalRows * totalCols;
         boolean[] visited = new boolean[numCells]; // marks cells that are in maze
-        HashSet<Integer> frontier = new HashSet<>(); // frontier set
+        HashSet<Integer> frontier = new HashSet<>(); // frontier as a Set rather than List to prevent duplicates
         visited[0] = true; // start is always in maze
+
+        // add neighbors of start
+        for (int neighbor : getPotentialNeighbors(0)) {
+            frontier.add(neighbor);
+        }
+
+        // continue adding neighbors until maze is complete
+        while (!frontier.isEmpty()) {
+            
+        }
     }
 
 }
