@@ -87,7 +87,32 @@ public class Maze {
 
         // continue adding neighbors until maze is complete
         while (!frontier.isEmpty()) {
-            
+            int currentCell = getRandomFromSet((frontier));
+
+
+            List<Integer> neighborsInMaze = new ArrayList<>(); // stores neighbors of current cell that are already in the maze
+            for (int neighbor : getPotentialNeighbors((currentCell))) {
+                if (visited[neighbor]) {
+                    neighborsInMaze.add(neighbor);
+                }
+            }
+
+            // random selected neighbor
+            int selectedNeighbor = neighborsInMaze.get(rng.nextInt(neighborsInMaze.size()));
+
+            // connect the two cells
+            adjacencyList.get(currentCell).add(selectedNeighbor);
+            adjacencyList.get(selectedNeighbor).add(currentCell);
+            visited[currentCell] = true;
+
+            // add neighbors of current cell to frontier
+            for (int neighbor : getPotentialNeighbors(currentCell)) {
+                if (!visited[neighbor]) {
+                    frontier.add(neighbor);
+                }
+            }
+
+            frontier.remove(currentCell);
         }
     }
 
