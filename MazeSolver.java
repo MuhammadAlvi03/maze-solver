@@ -15,30 +15,32 @@ public class MazeSolver {
             parent[i] = -1; // init to -1
         }
 
-        dfs(maze, start, end, visited, parent);
-
-        ArrayList<Integer> path = new ArrayList<>();
+        dfs(maze, start, end, visited, parent); // call dfs to solve
+        ArrayList<Integer> path = new ArrayList<>(); // stores path from end -> start
         int current = end;
         while(current != -1) {
             path.add(current);
             current = parent[current];
         }
 
-        Collections.reverse(path);
+        Collections.reverse(path); // correct path is stored in reverse
         return path;
 
     }
 
-    public static void dfs(Maze maze, int currentCell, int end, boolean[] visited, int[] parent) {
+    private static boolean dfs(Maze maze, int currentCell, int end, boolean[] visited, int[] parent) {
         visited[currentCell] = true;
         if (currentCell == end) {
-            return;
+            return true; // end found
         }
         for (int neighbor : maze.getConnectedNeighbors(currentCell)) {
             if (!visited[neighbor]) {
                 parent[neighbor] = currentCell;
-                dfs(maze, neighbor, end, visited, parent);
+                if (dfs(maze, neighbor, end, visited, parent)) { // recursive call
+                    return true;
+                }
             }
         }
+        return false;
     }
 }
