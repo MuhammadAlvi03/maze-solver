@@ -6,8 +6,8 @@ import java.util.HashSet;
 
 
 public class Maze {
-    int totalRows;
-    int totalCols;
+    public int totalRows;
+    public int totalCols;
 
     Cell[][] cells; // matrix of maze cells
     List<List<Integer>> adjacencyList; // stores neighbors
@@ -68,6 +68,11 @@ public class Maze {
             potentialNeighbors.add(row * totalCols + (col + 1));
         }
         return potentialNeighbors;
+    }
+
+    // returns connected neighbors of cell
+    public List<Integer> getConnectedNeighbors(int cellId) {
+        return adjacencyList.get(cellId);
     }
 
     // sets don't support random from index, so we can convert the set to a List and get random ID
