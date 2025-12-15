@@ -1,3 +1,4 @@
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,7 +42,7 @@ public class Maze {
 
     // returns true if two cells are connected
     public boolean isConnected(int row1, int col1, int row2, int col2) {
-        return adjacencyList.get(getId(col1, row1)).contains(getId(row2, col2));
+        return adjacencyList.get(getId(row1, col1)).contains(getId(row2, col2));
     }
 
     // returns a List of cellId's of adjacent cells
@@ -70,7 +71,7 @@ public class Maze {
     }
 
     // sets don't support random from index, so we can convert the set to a List and get random ID
-    Random rng = new Random();
+    Random rng = new Random(0);
     public int getRandomFromSet(HashSet<Integer> set) {
         List<Integer> list = new ArrayList<>(set);
         int randomIndex = rng.nextInt(list.size());
