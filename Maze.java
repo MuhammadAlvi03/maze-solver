@@ -32,11 +32,16 @@ public class Maze {
         
     }
 
-    // we will use an ID to identify each cell
+    // we use an ID to identify each cell
     // the unique ID will be (row * totalCols + col)
     // helper function to get Id
     public int getId(int r, int c) {
         return r * totalCols + c;
+    }
+
+    // returns true if two cells are connected
+    public boolean isConnected(int row1, int col1, int row2, int col2) {
+        return adjacencyList.get(getId(col1, row1)).contains(getId(row2, col2));
     }
 
     // returns a List of cellId's of adjacent cells
