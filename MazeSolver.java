@@ -25,7 +25,6 @@ public class MazeSolver {
 
         Collections.reverse(path); // correct path is stored in reverse
         return path;
-
     }
 
     private static boolean dfs(Maze maze, int currentCell, int end, boolean[] visited, int[] parent) {
